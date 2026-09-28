@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JARVIS // Holographic AI</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/livekit-client@2.15.6/dist/livekit-client.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+</head>
+<body>
+<div class="scanlines"></div>
+<main class="hud">
+<header class="topbar">
+<div class="brand"><span class="status-dot"></span>JARVIS<small>LIVEKIT // HOLOGRAPHIC AGENT</small></div>
+<div id="clock">--:--:--</div>
+</header>
+<section class="core">
+<div class="ring ring-a"></div><div class="ring ring-b"></div><div class="ring ring-c"></div>
+<div class="core-orb"><div class="core-light"></div><div class="core-label">JARVIS</div><div id="agentState">OFFLINE</div></div>
+<div id="handCursor"></div>
+</section>
+<aside class="panel left-panel">
+<div class="panel-title">SYSTEM</div>
+<div class="metric"><span>VOICE</span><b id="voiceState">STANDBY</b></div>
+<div class="metric"><span>CAMERA</span><b id="cameraState">OFF</b></div>
+<div class="metric"><span>GESTURE</span><b id="gestureState">NONE</b></div>
+<div class="metric"><span>NETWORK</span><b id="networkState">READY</b></div>
+</aside>
+<aside class="panel right-panel">
+<div class="panel-title">COMMAND FEED</div>
+<div id="feed" class="feed"><div>JARVIS interface initialized.</div><div>Awaiting activation.</div></div>
+</aside>
+<div class="bottom-controls">
+<button id="connectBtn">INITIALIZE JARVIS</button>
+<button id="cameraBtn">ENABLE HAND TRACKING</button>
+<button id="wakeBtn">WAKE WORD: OFF</button>
+</div>
+<div class="camera-card"><video id="camera" autoplay playsinline muted></video><canvas id="handCanvas"></canvas><span>HAND SENSOR</span></div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
