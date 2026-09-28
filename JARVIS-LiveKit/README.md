@@ -2,9 +2,32 @@
 
 A JARVIS-style realtime voice agent with a holographic HUD and camera hand gestures.
 
-Includes:
+## Secure API-key setup
+
+The Gemini API key is a **backend environment variable**. It is not stored in the frontend and must not be committed to GitHub.
+
+Create this local file:
+
+`JARVIS-LiveKit/agent/.env.local`
+
+and add:
+
+```text
+GOOGLE_API_KEY=YOUR_GEMINI_API_KEY
+LIVEKIT_URL=wss://YOUR_PROJECT.livekit.cloud
+LIVEKIT_API_KEY=YOUR_LIVEKIT_API_KEY
+LIVEKIT_API_SECRET=YOUR_LIVEKIT_API_SECRET
+```
+
+The Python agent loads `.env.local` automatically. Keep this file private.
+
+For hosted deployment, set `GOOGLE_API_KEY` as a **server-side environment variable/secret** in your hosting platform instead of putting it in source code.
+
+## Includes
+
 - LiveKit Agents Python backend
-- LiveKit Inference STT, LLM and TTS
+- Google Gemini LLM
+- LiveKit Inference STT and TTS
 - Realtime WebRTC voice
 - Hologram-style browser HUD
 - Camera hand tracking with MediaPipe
@@ -12,30 +35,26 @@ Includes:
 - Agent-state visualization
 - Browser wake-word helper for "Jarvis"
 
-## Run
+## Run on Windows
 
-1. Create a LiveKit Cloud project and enable the development token server.
-2. Put its token-server ID into frontend/app.js.
-3. Install the backend:
-   py -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   py -m pip install -r requirements.txt
-4. Authenticate LiveKit CLI:
-   lk cloud auth
-5. Run the agent:
-   lk agent dev
-6. Run the frontend:
-   py -m http.server 5500
-7. Open http://localhost:5500
+```powershell
+cd JARVIS-LiveKit\agent
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+py -m pip install -r requirements.txt
+lk cloud auth
+lk agent dev
+```
 
-For production, replace the development token server with a secure token endpoint.
+Then run the frontend in another PowerShell window:
 
-## Gestures
+```powershell
+cd JARVIS-LiveKit\frontend
+py -m http.server 5500
+```
 
-Open palm = wake HUD
-Fist = standby
-Pointing = holographic cursor
-Victory = panel command
-Pinch = holographic selection
+Open `http://localhost:5500`.
 
-Never place LiveKit API secrets or long-lived tokens in the browser.
+## Important
+
+Never put `GOOGLE_API_KEY`, `LIVEKIT_API_SECRET`, or other private credentials in `frontend/app.js`, `index.html`, or any committed source file.
